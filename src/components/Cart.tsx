@@ -2,17 +2,21 @@ import React from "react";
 import {
   Sheet,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import { ShoppingCart } from "lucide-react";
-import { Button } from "./ui/button";
+import { Link, ShoppingCart } from "lucide-react";
+import { Button, buttonVariants } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { formatPrice } from "@/lib/utils";
+import Logo from "@/assests/marketnest_logo.svg";
+import Image from "next/image";
+import { link } from "fs";
 
 export default function Cart() {
-  const itemCount = 1;
+  const itemCount = 0;
   const fee = 1;
   return (
     <Sheet>
@@ -45,11 +49,30 @@ export default function Cart() {
                   <span className="flex-1">Transaction fee</span>
                   <span>{formatPrice(fee)}</span>
                 </div>
+                <div className="flex">
+                  <span className="flex-1">Total</span>
+                  <span>{formatPrice(fee)}</span>
+                </div>
               </div>
+              <SheetFooter>
+                <SheetTrigger asChild>
+                  <Button className="w-full">Continue to Checkout</Button>
+                </SheetTrigger>
+              </SheetFooter>
             </div>
           </>
         ) : (
-          <div></div>
+          <div className="flex h-full flex-col items-center justify-center space-y-1">
+            <div className="relative mb-4 h-60 w-60 text-muted-foreground">
+              <Image src={Logo} fill alt="cart empty"></Image>
+            </div>
+            <div className="text-xl font-semibold">Your cart is empty</div>
+            <SheetTrigger asChild>
+              <Button variant="link" className="text-sm">
+                Add items to your cart to checkout
+              </Button>
+            </SheetTrigger>
+          </div>
         )}
       </SheetContent>
     </Sheet>

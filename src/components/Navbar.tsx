@@ -6,6 +6,7 @@ import Logo from "@/assests/marketnest_logo.svg";
 import NavItems from "./NavItems";
 import { buttonVariants } from "./ui/button";
 import Cart from "./Cart";
+import MobileNav from "./MobileNav";
 
 export default function Navbar() {
   const user = null;
@@ -15,7 +16,7 @@ export default function Navbar() {
         <MaxWidthWrapper>
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center">
-              {/* TODO: Mobile nav */}
+              <MobileNav />
               <div className="mt-2 ml-4 flex lg:ml-0">
                 <Link href="/">
                   <Image alt="Logo" src={Logo} height="150" width="150" />
@@ -29,7 +30,7 @@ export default function Navbar() {
                   {user ? null : (
                     <Link
                       href="/sign-in"
-                      className={buttonVariants({ variant: "ghost" })}
+                      className={buttonVariants({ variant: "default" })}
                     >
                       Sign In
                     </Link>
