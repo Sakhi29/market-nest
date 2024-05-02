@@ -1,6 +1,7 @@
 import express from "express";
 import { getPayloadClient } from "./get-payload";
 import { nextApp, nextHandler } from "./next-utils";
+import next from "next";
 
 const app = express();
 
