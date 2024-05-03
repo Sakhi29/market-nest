@@ -11,11 +11,9 @@ import { TAuthCredentialsValidator } from "@/lib/validator/account-credentials-v
 import { AuthCredentialsValidator } from "@/lib/validator/account-credentials-validator";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { trpc } from "@/trpc/client";
 
 const Page = () => {
-  const onSubmit = ({ email, password }: TAuthCredentialsValidator) => {
-    //send data to the server
-  };
   const {
     register,
     handleSubmit,
@@ -23,6 +21,14 @@ const Page = () => {
   } = useForm<TAuthCredentialsValidator>({
     resolver: zodResolver(AuthCredentialsValidator),
   });
+
+  const { mutate } = trpc.auth.createPayloadUser.useMutation({});
+
+  const onSubmit = ({ email, password }: TAuthCredentialsValidator) => {
+    //send data to the server
+    mutate({ email, password });
+  };
+
   return (
     <>
       <div className="container relative flex pt-20 flex-col items-center justify-center lg:px-0">
@@ -61,6 +67,7 @@ const Page = () => {
                     className={cn({
                       "focus-visible:ring-red-500": errors.password,
                     })}
+                    type="password"
                     placeholder="Password"
                   />
                 </div>
